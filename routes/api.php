@@ -14,27 +14,31 @@ use Illuminate\Http\Request;
 */
 
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
-
-
 
 Route::group(['prefix' =>'v1'],function(){
 
     Route::get('categories','Api\MainController@categories');
     Route::get('cities','Api\MainController@cities');
     Route::get('regions','Api\MainController@regions');
+    Route::get('offers','Api\MainController@offers');
+    Route::get('shops','Api\MainController@shops');
+    
 
-
+    
     Route::group(['prefix' =>'client'],function(){
       
         Route::post('register', 'Api\AuthController@register');
         Route::post('login', 'Api\AuthController@login');
-        Route::post('profile', 'Api\AuthController@profile');
         Route::post('reset-password', 'Api\AuthController@reset');
         Route::post('new-password', 'Api\AuthController@password');
-    });
+   
+    Route::group(['middleware'=>'auth:api'],function(){
+
+        Route::post('profile', 'Api\AuthController@profile');
+        Route::post('register-token', 'Api\AuthController@registerToken');
+        Route::post('remove-token', 'Api\AuthController@removeToken');
+
+
+    }); 
+    }); 
 }); 

@@ -15,14 +15,13 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
             $table->string('name');
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken()->nullable();
-            $table->string('phone')->nullable();
-			$table->integer('city_id')->nullable();
+            $table->string('phone')->unique();
+			$table->integer('region_id')->nullable();
 			$table->text('address')->nullable();
 			$table->string('profile_image')->nullable();
 			$table->string('api_token',60);

@@ -1,23 +1,60 @@
-@extends('layouts.app')
-
+@extends('admin.layouts.main',[
+                                'page_header'       => 'تطبيق أكلات',
+                                'page_description'  => 'لوحة التحكم'
+                                ])
+@inject('shop','App\Models\Shop')
+@inject('category','App\Models\Category')
+@inject('client','App\Models\Client')
+<?php
+    $usersCount = $client->all()->count();
+   // $ordersCount = $order->where('state','!=','pending')->get()->count();
+    $restaurantCount = $shop->all()->count();
+?>
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+        <!-- Info boxes -->
+<div class="row">
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-cutlery"></i></span>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
+            <div class="info-box-content">
+                <span class="info-box-text">عدد المطاعم</span>
+                <span class="info-box-number">{{$restaurantCount}}</span>
             </div>
+            <!-- /.info-box-content -->
         </div>
+        <!-- /.info-box -->
     </div>
+    <!-- /.col -->
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="fa fa-tasks"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">عدد الطلبات المكتملة</span>
+                <span class="info-box-number"></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">عدد المستخدمين</span>
+                <span class="info-box-number">{{$usersCount}}</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+
+    <!-- fix for small devices only -->
+    <div class="clearfix visible-sm-block"></div>
+
 </div>
+<!-- /.row -->
 @endsection

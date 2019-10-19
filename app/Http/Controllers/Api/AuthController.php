@@ -21,20 +21,21 @@ class AuthController extends Controller
     {
         $validation = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email|unique:clients',
+            'phone' => 'required|unique:clients',
             'password' => 'required|min:6|max:20',
         ]);
         if ($validation->fails()) {
-            return Response::json([
+            $data = [
                  
                     'status' => 0,
-                    'msg' => 'برجاء التأككد من البيانات',
-                    'errors' => $validation->errors()
+                    'msg' => 'برجاء التأكد من البيانات',
+                    'data' => $validation->errors()
                 
-            ], 200);
+            ];
+
+            return Response::json($data, 200);
         }
-        
-      //  $userToken = $user->createToken('authToken')
+    
         $userToken = str_random(60);
         $request->merge(array('api_token' => $userToken));
         $request->merge(array('password' => bcrypt($request->password)));
@@ -44,17 +45,18 @@ class AuthController extends Controller
                
                     'status' => 1,
                     'msg' => 'تم التسجيل بنجاح',
-                    'data' =>   $user
+                    'data' => $user
                 
             ];
             return Response::json($data, 200);
+
         } else {
-            return Response::json([
-                'data' => [
+                $data = [
+
                     'status' => 0,
                     'message' => 'حدث خطأ ، حاول مرة أخرى',
-                ]
-            ], 200);
+                ];
+                return Response::json($data, 200);
         }
     }
     /**
@@ -64,16 +66,16 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = validator()->make($request->all(), [
+            'phone' => 'required',
             'password' => 'required',
-            'email' => 'required',
+            
        ]);
 
         if ($validator->fails()) {
             return responsejson(0, $validator->errors()->first(), $validator->errors());
         }
 
-        $client = Client::where('email', $request->email)->first();
-        //return auth()->guard('api')->validate($request->all());
+        $client = Client::where('phone', $request->phone)->first();
 
         if ($client) {
 
@@ -82,9 +84,7 @@ class AuthController extends Controller
                     1,
                     'تم التسجيل الدخول',
                     [
-                        'api_token' => $client->api_token,
-                        'client' => $client,
-
+                      'client' => $client,
                     ]
                 );
             } else {
@@ -97,17 +97,7 @@ class AuthController extends Controller
         }
        
     }
-/*
-            return Response::json($data, 200);
-        } else {
-            return Response::json([
-                'data' => [
-                    'status' => 0,
-                    'msg' => 'Check Your info and try agian',
-                ]
-            ], 200);
-        }
-    }*/
+
     /**
      * @param Request $request
      * @return mixed
@@ -150,11 +140,11 @@ class AuthController extends Controller
         if ($request->has('city_id')) {
             Auth::guard('api')->user()->update($request->only('city_id'));
         }
-        if ($request->has('date_of_birth')) {
-            Auth::guard('api')->user()->update($request->only('date_of_birth'));
+        if ($request->has('address')) {
+            Auth::guard('api')->user()->update($request->only('address'));
         }
-        if ($request->has('gender')) {
-            Auth::guard('api')->user()->update($request->only('gender'));
+        if ($request->has('profile_image')) {
+            Auth::guard('api')->user()->update($request->only('profile_image'));
         }
         $data = [
             'data' => [
@@ -165,8 +155,6 @@ class AuthController extends Controller
         ];
         return Response::json($data, 200);
     }
-    
-    
     /**
      * @param Request $request
      * @return mixed
@@ -195,7 +183,7 @@ class AuthController extends Controller
             {
                 // send email
                 Mail::send('emails.reset', ['code' => $code], function ($mail) use($user) {
-                    $mail->from('no-reply@aklatcontrol.com', 'تطبيق أكلات');
+                    $mail->from('no-reply@offers.com', 'تطبيق عروضي');
                     $mail->to($user->email, $user->name)->subject('إعادة تعيين كلمة المرور');
                 });
                 $data = [

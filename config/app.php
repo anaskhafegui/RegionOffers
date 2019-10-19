@@ -165,9 +165,16 @@ return [
         /*
          * Package Service Providers...
          */
+        Barryvdh\Debugbar\ServiceProvider::class,
+       // Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        //Zizaco\Entrust\EntrustServiceProvider::class,
+       // Maatwebsite\Excel\ExcelServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         
-
+    
         /*
          * Application Service Providers...
          */
@@ -176,9 +183,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
-        
-        Schedula\Laravel\PassportSocialite\PassportSocialiteServiceProvider::class,
+
+       
+
 
     ],
 
@@ -230,11 +237,19 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        
         'Passport' => Laravel\Laravel\Passport\PassportServiceProvider::class,
+
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+       // 'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'Field' => App\anas\MyClasses\Field::class,
 
     ],
 
-    'Field' => App\anas\MyClasses\Field::class
+    
 
 ];
