@@ -95,7 +95,7 @@
                         @foreach($shops as $shop)
                             <tr id="removable{{$shop->id}}">
                                 <td>{{$count}}</td>
-                                <td><a style="cursor: pointer" data-toggle="modal" data-target="#myModal{{$shop->id}}">{{$shop->name['en']}}</a></td>
+                                <td><a style="cursor: pointer" data-toggle="modal" data-target="#myModal{{$shop->id}}">{{$shop->name}}</a></td>
                                 <td>
                                     @if(count($shop->regions))
                                         {{$shop->regions[0]->city->name}} </td>
@@ -146,7 +146,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">{{$shop->name['en']}}</h4>
+                                            <h4 class="modal-title" id="myModalLabel">{{$shop->name}}</h4>
                                         </div>
                                         <div class="modal-body">
                                             <div class="row">

@@ -14,10 +14,6 @@ class Shop extends Model
     );
     protected $appends = ['photo_url'];
     
-    public function getNameAttribute($value)
-    {
-        return unserialize($value);
-    } 
 
     public function category(){
         return $this->belongsTo(Category::class);

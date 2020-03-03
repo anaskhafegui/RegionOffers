@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    
     protected $fillable = ['name','image'];
-    
 
     public function shops(){
 
@@ -24,11 +22,5 @@ class Category extends Model
     {
         return url($this->photo);
     }
-    
-    
-    public function getNameAttribute($value)
-    {
-        return unserialize($value);
-    } 
      
 }

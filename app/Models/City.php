@@ -12,8 +12,5 @@ class City extends Model
 
         return $this->hasMany(Region::class);
     }
-     public function getNameAttribute($value)
-    {
-        return unserialize($value);
-    } 
+
 }

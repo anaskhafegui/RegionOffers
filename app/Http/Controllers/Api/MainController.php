@@ -79,12 +79,9 @@ class MainController extends Controller
 
     public function shops(Request $request)
     {
-        //مش لازم يخرج ويخش كاتيجوري تاني هيا دينامك
-        $shops = 
-             Shop::Join(
+     $shops = Shop::Join(
                 DB::raw('(SELECT shop_id, ROUND(AVG(rate)) AS rate FROM reviews GROUP BY shop_id) AS n'),
-                'n.shop_id', '=', 'shops.id'
-            ) 
+                'n.shop_id', '=', 'shops.id' ) 
             ->where(function($q) use($request) {
             if ($request->has('keyword'))
             {
