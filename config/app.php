@@ -166,13 +166,12 @@ return [
          * Package Service Providers...
          */
         Barryvdh\Debugbar\ServiceProvider::class,
-       // Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+      
         //Zizaco\Entrust\EntrustServiceProvider::class,
        // Maatwebsite\Excel\ExcelServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
-    
         
     
         /*
