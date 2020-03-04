@@ -172,7 +172,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
+    
         
     
         /*
@@ -238,9 +238,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        
-        'Passport' => Laravel\Laravel\Passport\PassportServiceProvider::class,
-
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
        // 'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,

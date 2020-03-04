@@ -46,7 +46,7 @@ class Shop extends Model
         return $cityName.$this->name.' : '.$this->phone;
     }
      
-  /*   public function getRateAttribute($value)
+   public function getRateAttribute($value)
     {
         $sumRating = $this->reviews()->sum('rate');
         $countRating = $this->reviews()->count();
@@ -57,23 +57,6 @@ class Shop extends Model
         }
         return number_format($this->reviews()->avg('rate'), 0, '.', '');
     }
-
-    public function scopeOrderByRating($query, $order = 'desc')
-    {
-         SELECT shops.*,AVG(reviews.rate) as average
-
-            FROM shops
-
-            JOIN reviews ON shops.id = reviews.shop_id
-
-            GROUP BY shops.name
-
-            ORDER BY average DESC 
-        return $query->leftJoin('reviews', 'reviews.shop_id', '=', 'shops.id')
-            ->groupBy('shops.id')
-            ->addSelect(['*', \DB::raw('sum(rate) as sumRating')])
-            ->orderBy('sumRating', $order);
-    } */
 
     public function scopeActivated($query)
     {
