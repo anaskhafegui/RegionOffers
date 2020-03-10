@@ -30,6 +30,9 @@ class Client extends Model
 
         return $this->hasMany(Order::class);
     }
+    public function tokens(){
 
+        return $this->hasMany(Token::class);
+    } 
   
 }

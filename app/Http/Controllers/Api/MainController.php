@@ -86,8 +86,9 @@ class MainController extends Controller
             if ($request->has('keyword'))
             {
                 $q->where(function($q2) use($request){
-                    $q2->where('name','LIKE','%'.$request->keyword.'%');
+                    $q2->where('name','LIKE','%'.$request->keyword.'%')->orwhere('name_ar','LIKE','%'.$request->keyword.'%');
                 });
+                
             }
             if ($request->has('region_id'))
             {
@@ -265,6 +266,7 @@ public function newOrder(Request $request)
              ]);
            
        $notification = Notification::create([
+           
                 'client_id' => $request->user()->id,
                 'shop_id'  => $shop->id,
                 'title' =>'لديك طلب جديد',

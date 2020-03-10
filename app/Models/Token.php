@@ -11,10 +11,10 @@ class Token extends Model
     protected $fillable = array('client_id','token','type');
 
 
-    /*public function client()
+    public function client()
     {
         return $this->belongsTo('App\Models\Client');
-    }*/
+    }
     public function shop()
     {
         return $this->belongsTo('App\Models\Shop');

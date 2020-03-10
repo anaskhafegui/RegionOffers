@@ -22,20 +22,10 @@ class Offer extends Model
     {
     return $this->belongsToMany('App\Models\Order')->withPivot('price', 'quantity', 'note');
     }
- 
-
     public function getPhotoUrlAttribute($value)
     {
         return url($this->photo);
     }
-       public function getTitleAttribute($value)
-    {
-        return unserialize($value);
-    } 
-    public function getDescriptionAttribute($value)
-    {
-        return unserialize($value);
-    } 
      public function getAvailableAttribute()
     {
         $today = Carbon::now();

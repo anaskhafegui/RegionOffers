@@ -14,10 +14,12 @@ class CreateTestsTable extends Migration
     public function up()
     {
         Schema::create('tests', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('image')->nullable();
+            $table->increments('id');
             $table->timestamps();
+            $table->integer('client_id');
+            $table->string('token');
+            $table->enum('type',["android","ios"]);
+       
         });
     }
 
