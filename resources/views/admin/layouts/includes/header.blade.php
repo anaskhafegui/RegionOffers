@@ -7,7 +7,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{config('app.name')}} | لوحة التحكم</title>
+      <!--<title>{{config('app.name')}} | لوحة التحكم</title>-->
+    <title> @yield('title')</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -92,17 +93,18 @@ desired effect
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    {{--<li class="dropdown notifications-menu">--}}
-                    {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">--}}
-                    {{--<i class="fa fa-bell-o"></i>--}}
-                    {{--<span class="label label-warning new_orders_count">0</span>--}}
-                    {{--</a>--}}
-                    {{--<ul class="dropdown-menu">--}}
-                    {{--<li class="header">لديك <span class="new_orders_count">0</span> طلبات جديدة</li>--}}
-                    {{--<li class="footer"><a href="{{url('admin')}}">الذهاب لصفحة الطلبات</a></li>--}}
-                    {{--</ul>--}}
-                    {{--</li>--}}
-                            <!-- User Account Menu -->
+
+                    <li class="dropdown notifications-menu">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                     <i class="fa fa-bell-o"></i>
+                    <span class="label label-warning new_orders_count"></span>
+                     </a>
+                    <ul class="dropdown-menu notificationss-pop">
+
+                    </ul>
+                    </li>
+
+                    <!-- User Account Menu -->
                     <li class="dropdown user user-menu">
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">

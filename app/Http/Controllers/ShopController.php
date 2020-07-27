@@ -8,6 +8,8 @@ use App\Models\City;
 use DB;
 use Illuminate\Http\Request;
 use Response;
+use Validator;
+use Response;
 
 class ShopController extends Controller
 {
@@ -58,19 +60,19 @@ class ShopController extends Controller
             'minimum_charger' => 'required',
             'delivery_cost' => 'required',
             'availability' => 'required',
-            'address' => 'required',        
+            'address' => 'required',
             'delivery' => 'required|string',
             'takeaway'  => 'required',
         ]);
 
-      
+
 
         $shop = Shop::create([
-            'name' =>$request->name, 
-            'category_id' =>$request->category_id, 
-            'email' =>$request->email, 
-            'phone' =>$request->phone, 
-            'minimum_charger' =>$request->minimum_charger, 
+            'name' =>$request->name,
+            'category_id' =>$request->category_id,
+            'email' =>$request->email,
+            'phone' =>$request->phone,
+            'minimum_charger' =>$request->minimum_charger,
             'delivery_cost' =>$request->delivery_cost,
             'availability' =>$request->availability,
             'address' =>$request->address,
@@ -78,10 +80,10 @@ class ShopController extends Controller
             'takeaway'  =>(int) $request->takeaway,
             'password' =>bcrypt('123456'),
             'api_token' =>'123456'
-            
+
         ]);
         $shop->regions()->attach((int)$request->region_id);
-    
+
         if ($request->hasFile('photo')) {
             $path = public_path();
             $destinationPath = $path . '/uploads/shops/'; // upload path
@@ -96,8 +98,8 @@ class ShopController extends Controller
             $restaurant->delivery_regions()->attach($request->regions_list);
         }
 
-        
-        
+
+
         flash()->success('تم إضافة المطعم بنجاح');
         return redirect('admin/shop');
     }
@@ -109,7 +111,7 @@ class ShopController extends Controller
     }
 
     public function update(Request $request, $id)
-    {   
+    {
         $this->validate($request, [
             'name' => 'required',
             'category_id' => 'required',
@@ -118,22 +120,22 @@ class ShopController extends Controller
             'minimum_charger' => 'required',
             'delivery_cost' => 'required',
             'availability' => 'required',
-            'address' => 'required',        
+            'address' => 'required',
             'delivery' => 'required|string',
             'takeaway'  => 'required',
         ]);
         $shop = Shop::findOrFail($id);
         $shop->update([
-            'name'=>$request->name, 
-            'category_id'=>$request->category_id, 
-            'email'=>$request->email, 
-            'phone'=>$request->phone, 
-            'minimum_charger'=>$request->minimum_charger, 
+            'name'=>$request->name,
+            'category_id'=>$request->category_id,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'minimum_charger'=>$request->minimum_charger,
             'delivery_cost'=>$request->delivery_cost,
             'availability'=>$request->availability,
             'address' =>$request->address,
             'delivery'=> (int)$request->delivery,
-            'takeaway'=>(int)$request->takeaway,       
+            'takeaway'=>(int)$request->takeaway,
         ]);
         $shop->regions()->attach((int)$request->region_id);
         if ($request->hasFile('photo')) {

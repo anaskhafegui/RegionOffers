@@ -14,7 +14,7 @@ class Client extends Model
 
     protected $fillable = [
 
-        'name', 'email', 'phone' ,'password', 'api_token', 'region_id', 'address','profile_image','gender','birthday'
+        'name', 'email', 'phone' ,'password', 'api_token', 'region_id', 'address','profile_image','gender','birthday','provider_id','code'
 
     ];
     

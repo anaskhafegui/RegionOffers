@@ -3,7 +3,7 @@
 
 {!! Field::text('name' , 'اسم التصنيف') !!}
  
-{!! Field::text('name_arabic' , 'اسم العربي ') !!}
+{!! Field::text('name_ar' , 'اسم العربي ') !!}
  
 {!! Field::fileWithPreview('photo','صورة الصنف') !!}
 @if($model->photo != '')

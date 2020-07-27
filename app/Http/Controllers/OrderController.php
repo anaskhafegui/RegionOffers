@@ -10,6 +10,7 @@ class OrderController extends Controller {
 
     public function index(Request $request)
     {
+        
         $order = Order::where(function($q) use($request){
             if ($request->has('order_id'))
             {
@@ -114,6 +115,3 @@ class OrderController extends Controller {
     }
 
 }
-
-
-

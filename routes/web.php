@@ -24,6 +24,7 @@ Route::get('/admin/shop/regions_ajax','Api\MainController@ajax_region');
 
 // admin routes
 Route::group(['middleware'=>'auth' , 'prefix' => 'admin'],function(){
+
     Route::get('/','HomeController@index');
     Route::resource('city', 'CityController');
     Route::resource('region', 'RegionController');
@@ -35,7 +36,16 @@ Route::group(['middleware'=>'auth' , 'prefix' => 'admin'],function(){
     Route::resource('offer', 'OfferController');
     Route::resource('order', 'OrderController');
 
-    
+
+    Route::get('notifications', 'NotificationController@notifications');
+
+    Route::get('notification/{id}', 'NotificationController@show');
+
+  //  Route::post('notification/{id}', 'NotificationController@read');
+
+    Route::get('notifications-ajax', 'NotificationController@unread');
+
+
 
     Route::get('settings','SettingsController@view');
     Route::post('settings','SettingsController@update');
@@ -45,11 +55,11 @@ Route::group(['middleware'=>'auth' , 'prefix' => 'admin'],function(){
     Route::resource('payment-method','PaymentMethodController');
     Route::resource('delivery-method','DeliveryMethodController');
     Route::resource('contact','ContactController');
-    
+
     // user reset
     Route::get('user/change-password','UserController@changePassword');
     Route::post('user/change-password','UserController@changePasswordSave');
-  
+
 //    Route::resource('user','UserController');
 //    Route::resource('role','RoleController');
 });

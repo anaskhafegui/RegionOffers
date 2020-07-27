@@ -21,7 +21,7 @@ class CreateOffersTable extends Migration
             $table->text('description')->nullable();
             $table->decimal('price')->default(0.00);
             $table->datetime('starting_at');
-			$table->datetime('ending_at');
+		      	$table->datetime('ending_at');
             $table->string('photo')->nullable();
             $table->timestamps();
         });

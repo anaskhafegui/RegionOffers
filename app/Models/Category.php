@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['name','image'];
+    protected $fillable = ['name', 'name_ar', 'image'];
 
-    public function shops(){
-
+    public function shops()
+    {
         return $this->hasMany(Shop::class);
     }
 
-    public function  offers(){
-
+    public function offers()
+    {
         return $this->hasMany(Offer::class);
     }
 
@@ -22,5 +22,4 @@ class Category extends Model
     {
         return url($this->photo);
     }
-     
 }

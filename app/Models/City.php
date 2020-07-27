@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'name_ar'];
 
-    public function regions(){
-
+    public function regions()
+    {
         return $this->hasMany(Region::class);
     }
-
 }

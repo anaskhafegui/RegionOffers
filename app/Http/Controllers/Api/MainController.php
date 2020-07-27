@@ -16,10 +16,28 @@ use App\Models\Notification;
 use App\Models\Contact;
 use App\Setting;
 
+
+use App\Scoping\Scopes\CategoryScope;
+use App\Scoping\Scopes\ShopScope;
+
 use Illuminate\Support\Facades\DB;
 class MainController extends Controller
 {
-   
+    public function index()
+    {
+    	$products = Shop::WithScopes($this->scopes())->paginate(10);
+
+        dd($products);
+    	
+    }
+    
+    protected function scopes()
+    {
+    	return [
+            'category' => new CategoryScope,
+            'name' => new ShopScope
+    	];
+    }
     public function cities(Request $request)
     {  
        
@@ -205,9 +223,6 @@ public function newOrder(Request $request)
         $data = $validation->errors();
         return responseJson(0, $validation->errors()->first(), $data);
     }
-
-   
-
     $shop = Shop::find($request->shop_id);
     // shop closed
     if ($shop->availability == 'closed') {
@@ -298,7 +313,7 @@ public function newOrder(Request $request)
         ];
         return responseJson(1, 'تم الطلب بنجاح', $data);
     } else {
-        $order->items()->delete();
+        $order->offers()->delete();
         $order->delete();
         return responseJson(0, 'الطلب لابد أن لا يكون أقل من ' . $shop->minimum_charger . ' ريال');
     }

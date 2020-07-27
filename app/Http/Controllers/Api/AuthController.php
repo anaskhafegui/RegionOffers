@@ -11,7 +11,6 @@ use App\Models\Client;
 use Illuminate\Validation\Rule;
 use Validator;
 use Response;
-
 use Mail;
 
 
@@ -62,18 +61,19 @@ class AuthController extends Controller
     }
     public function facebooklogin(Request $request)
     {
+       
          $validator = validator()->make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
             'email'    => 'required',
-            'provider_id' => 'required',
+            'provider_id' => 'required:unique:clients',
        ]);
        
         if ($validator->fails()) {
             return responsejson(0, $validator->errors()->first(), $validator->errors());
         }
-        $client= Client::where('provider_id',$request->provider_id)->first();
-         if ($client) {
+        $client = Client::where('provider_id','=',$request->provider_id)->first();
+        if ($client) {
                 return responsejson(
                     1,
                     'تم التسجيل الدخول',
@@ -82,98 +82,84 @@ class AuthController extends Controller
                     ]
                 );
          }
-        
-        
-        else
-        {
-        $validator = validator()->make($request->all(), [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email'    => 'required',
-            'provider_id' => 'required',
-       ]);
-
-        if ($validator->fails()) {
-            return responsejson(0, $validator->errors()->first(), $validator->errors());
-        }
-        
-        $userToken = str_random(60);
-        $request->merge(array('api_token' => $userToken));
-        $request->merge(array('password' => $userToken));
-        $request->merge(array('mobile' => $userToken));
-        
-        $user = Client::create([
-            'name' => $request->first_name.' '.$request->last_name,
-            'provider_id' => $request->provider_id,
-            'api_token'  => $request->api_token,
-            'email'     => $request->email,
-            'password'   => $request->password,
-            'phone'       =>$request->mobile
-            
+        else {
+            $validator = validator()->make($request->all(), [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'email'    => 'required',
+                'provider_id' => 'required:unique:clients',
             ]);
-        if ($user) {
-            $data = [
-               
-                    'status' => 1,
-                    'msg' => 'تم التسجيل بنجاح',
-                    'data' => $user
+
+            if ($validator->fails()) {
+                return responsejson(0, $validator->errors()->first(), $validator->errors());
+            }
+         
+            $userToken = str_random(60);
+            
+            $user = Client::create([
+                'name'        => $request->first_name.' '.$request->last_name,
+                'provider_id' => $request->provider_id ,
+                'api_token'   => $userToken ,
+                'email'       => $request->email,
+                'password'    => $userToken ,
+                'phone'       =>$userToken 
                 
-            ];
-            return Response::json($data, 200);
-
-        } else {
+                ]);
+            if ($user) {
                 $data = [
-
-                    'status' => 0,
-                    'message' => 'حدث خطأ ، حاول مرة أخرى',
+                        'status' => 1,
+                        'msg' => 'تم التسجيل بنجاح',
+                        'data' => $user
                 ];
                 return Response::json($data, 200);
+                       } 
+            else{
+                    $data = [
+
+                        'status' => 0,
+                        'message' => 'حدث خطأ ، حاول مرة أخرى',
+                    ];
+                    return Response::json($data, 200);
+                   }
+            }     
         }
-        
-        
-        
-        
-        
-        }
-        
-    }
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function login(Request $request)
-    {
-        $validator = validator()->make($request->all(), [
-            'phone' => 'required',
-            'password' => 'required',
-            
-       ]);
+        /**
+         * @param Request $request
+         * @return mixed
+         */
+        public function login(Request $request)
+        {
+            $validator = validator()->make($request->all(), [
+                'phone' => 'required',
+                'password' => 'required',
+                
+        ]);
 
-        if ($validator->fails()) {
-            return responsejson(0, $validator->errors()->first(), $validator->errors());
-        }
+            if ($validator->fails()) {
+                return responsejson(0, $validator->errors()->first(), $validator->errors());
+            }
 
-        $client = Client::where('phone', $request->phone)->first();
+            $client = Client::where('phone', $request->phone)->first();
 
-        if ($client) {
+            if ($client) {
 
-            if (Hash::check($request->password, $client->password)) {
-                return responsejson(
-                    1,
-                    'تم التسجيل الدخول',
-                    [
-                      'client' => $client->load('region.city'),
-                    ]
-                );
+                if (Hash::check($request->password, $client->password)) {
+                    return responsejson(
+                        1,
+                        'تم التسجيل الدخول',
+                        [
+                        'client' => $client->load('region.city'),
+                        ]
+                    );
+                } else {
+
+                    return responsejson('0', ' تسجيل الدخول غير صحيح');
+                }
             } else {
 
                 return responsejson('0', ' تسجيل الدخول غير صحيح');
             }
-        } else {
-
-            return responsejson('0', ' تسجيل الدخول غير صحيح');
-        }
-       
+        
     }
 
     /**
@@ -223,9 +209,6 @@ class AuthController extends Controller
         if ($request->has('address')) {
             Auth::guard('api')->user()->update($request->only('address'));
         }
-       /* if ($request->has('profile_image')) {
-            Auth::guard('api')->user()->update($request->only('profile_image'));
-        }*/
          if ($request->has('date_of_birth')) {
             Auth::guard('api')->user()->update($request->only('date_of_birth'));
         }

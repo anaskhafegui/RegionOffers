@@ -2,7 +2,7 @@
                                 'page_header'       => 'تطبيق أكلات',
                                 'page_description'  => 'لوحة التحكم'
                                 ])
-@inject('restaurant','App\Restaurant')
+@inject('restaurant','App\Shop')
 @inject('order','App\Order')
 @inject('client','App\Client')
 <?php

@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Models;
-
+use App\Scoping\Scoper;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Shop extends Model
@@ -89,7 +90,11 @@ class Shop extends Model
         return url($this->photo);
     }
 
+    public function scopeWithScopes(Builder $builder, $scopes=[] ){
+       
+        return (new Scoper(request()))->apply($builder,$scopes);
 
+    }
     /**
      * The attributes that should be hidden for arrays.
      *

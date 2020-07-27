@@ -50,10 +50,7 @@ $regions = $regions+$city->find($selected)->regions()->pluck('name','id')->toArr
 $plugin = 'select2';
 $placeholder = 'اختر المدينة';
 $option=' <option value="0">إختر المنطقة</option>';
-
-
 @endphp
-
 
 <div class="row">
     <div class="col-md-12 ">
@@ -67,13 +64,9 @@ $option=' <option value="0">إختر المنطقة</option>';
     </div>
 </div>
 <div class="row">
-
-
-  
     <div class="col-md-6">
         {!! Field::text('contact','للتواصل') !!}
     </div>
-    
     <div class="col-md-6">
         {!! Field::select('delivery','خدمة توصيل الطلبات',[1  => 'نعم', 0 => 'لا']) !!}
     </div>
@@ -81,7 +74,7 @@ $option=' <option value="0">إختر المنطقة</option>';
         {!! Field::select('takeaway','خدمة التقاط الطلبات',[1 => 'نعم', 0 => 'لا']) !!}
     </div>
     <div class="col-md-6">
-        {!! Field::select('category_id','تصنيف المحل',$category->pluck('name','id')->toArray()) !!} 
+        {!! Field::select('category_id','تصنيف المحل',$category->pluck('name','id')->toArray()) !!}
     </div>
     <div class="col-md-6">
         {!! Field::number('minimum_charger','الحد الأدني لسعر الطلبات') !!}
@@ -89,7 +82,6 @@ $option=' <option value="0">إختر المنطقة</option>';
     <div class="col-md-6">
         {!! Field::number('delivery_cost','سعر توصيل الطلبات') !!}
     </div>
-    
     <div class="col-md-6">
         {!! Field::select('availability','حالة المحل',['open' => 'مفتوح', 'soon' => 'قريبا', 'closed' => 'مغلق']) !!}
     </div>
@@ -109,30 +101,30 @@ $option=' <option value="0">إختر المنطقة</option>';
             </div>
         </div>
     </div>
-    
+
       <div class="col-md-12">
         <div  class="form-group">
             <label for="region_id" class="control-label">اختر المنطقة</label>
-            
+
                 {!! Field::multiSelect('region_id' , '', $regions,'',$selectedRegion,[
                 "class" => "form-control ".$plugin,
                 "id" => 'region_id',
                 "data-placeholder"=> $placeholder
-                ]) 
-                
-                
-                
+                ])
+
+
+
                 !!}
-                   
+
         </div>
     </div>
-    
+
     <div class="col-md-6">
         {!! Field::textarea('about','عن المحل') !!}
     </div>
 
-  
-  
+
+
 
 
 
@@ -148,7 +140,7 @@ $option=' <option value="0">إختر المنطقة</option>';
         {!! Field::select('user_id','مدير المطعم',$restaurant_admins) !!}
     </div>
     <div class="col-md-6">
-        {!! Field::select('contractor_id','مندوب المطعم',$restaurant_contractors) !!} 
+        {!! Field::select('contractor_id','مندوب المطعم',$restaurant_contractors) !!}
     </div>--}}
 </div>
 
@@ -168,7 +160,3 @@ $option=' <option value="0">إختر المنطقة</option>';
 @endif
 
 <hr>
-
-
-
-

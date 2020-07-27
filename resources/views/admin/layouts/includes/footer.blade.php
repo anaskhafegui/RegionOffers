@@ -40,6 +40,7 @@
 <script src="{{asset('AdminLTE-2.3.0/plugins/wickedpicker/wickedpicker.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js  "></script>
 <script src="{{asset('AdminLTE-2.3.0/summernote.min.js')}}"></script>
+<script src="{{asset('js/anas.js')}}"></script>
 <script>
     /**
      * summer note
@@ -48,16 +49,63 @@
         $('.summernote').summernote({
             height: 300
         });
-    });
-</script>
-<script>
-  
-</script>
-<script src="{{asset('js/anas.js')}}"></script>
-<script>
-    $('#Modal').click(function(){
 
+        setInterval(get_notifications,3000);
+
+         function get_notifications(){
+
+                            $.ajax({
+                            url: "{{ url('admin/notifications-ajax') }}" ,
+                            type: "get",
+                            dataType: "json",
+                            global: false,
+                            success: function(data){
+
+                            console.log(data.notification);
+
+                                  $(".new_orders_count").html(data.number);
+                                  //<span  class="icon-shopping_cart"></span>
+                                     if(data.number!=0){
+                                              $(".notificationss-pop").html(data.notification+'<li class="footer"><a href="{{url('admin/notifications')}}">الذهاب لصفحة الطلبات</a></li>');
+                                              //document.getElementById('notiaudio2').play();
+                                          }
+                                          },
+                                            error:function(data)
+                                          {
+                                            console.log(data);
+                                          }
+
+                                          });
+
+                                  }
     });
+
+    $(".notification-read").on( "click", function() {
+
+      var test = $(this).attr("data-target");
+
+      var id = test.substring(8);
+
+
+      $.ajax({
+      url: "{{ url('admin/notification') }}"+"/"+id ,
+      type: "get",
+      dataType: "json",
+      success: function(data)
+      {
+
+      console.log(data.status);
+
+                    },
+                    error:function(data)
+                    {
+                      console.log(0);
+                    }
+                    });
+
+            });
 </script>
+
+
 </body>
 </html>

@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -40,12 +39,18 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
         'api' => [
             'driver' => 'token',
             'provider' => 'clients',
         ],
-      
+        'client' => [
+            'driver' => 'token',
+            'provider' => 'clients',
+        ],
+        'shop' => [
+            'driver' => 'token',
+            'provider' => 'shops',
+        ],
     ],
 
     /*
@@ -73,6 +78,10 @@ return [
         'clients' => [
             'driver' => 'eloquent',
             'model' => App\Models\Client::class,
+        ],
+        'shops' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Shop::class,
         ],
 
         // 'users' => [
@@ -103,5 +112,4 @@ return [
             'expire' => 60,
         ],
     ],
-
 ];
